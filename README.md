@@ -21,5 +21,15 @@ deleteOwner me elimina los datos seleccionados
 ## owner
 
 Es el lugar donde se edita, actualiza y elimina individualmente los owners y tiene  la siguiente implementacion
+El ngOnInit es donde obtengo el dato del owner el cual se desea eliminar, actualizar si se selecciona un campo
+El gotoList() me sirve para redireccionar al owners-list
+save, recibe los datos del form y hace peticion al servicio de owner para guardar
+remove, recibe el href por el cual hace una peticion al servicio de owner para eliminar
+
+## shared/owner
+Es el servicio que se encarga de mandar las peticiones a la API, tiene los mismos metodos que el cars service y algunos mas
+los cuales son los siguientes
+removeRelation, recibe el dni y lo que hace es eliminar la relacion que tiene con el car
+get, solo obtiene el owner solicitado por la dni
 
 
