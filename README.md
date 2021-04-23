@@ -1,27 +1,25 @@
 # CarServiceClient
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
+Es un proyecto que se le hizo un fork de https://github.com/cmduquer/carserviceclient y modificado para cumplir con las condiciones solicitadas
 
-## Development server
+## Componentes y servicios usados
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Se creo los siguientes componentes main-view, owner-list, owner y el servicio de shared/owner
 
-## Code scaffolding
+## main-view
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Solo muestra dos botones para redirigirse a las paginas de la web
 
-## Build
+## Owner-list
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Es la vista donde se pueden observar los datos del owner y tiene  la siguiente implementacion
+En el ngOnInit se obtienen todos los datos para mostrar
+selectToDelete obtiene los datos seleccionados en el checkbox del html
+gotoMain me redirecciona a la vista inicial
+deleteOwner me elimina los datos seleccionados
 
-## Running unit tests
+## owner
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Es el lugar donde se edita, actualiza y elimina individualmente los owners y tiene  la siguiente implementacion
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
