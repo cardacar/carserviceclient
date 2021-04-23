@@ -7,16 +7,23 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CarListComponent } from './car-list/car-list.component';
 
-import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatCheckboxModule, MatInputModule, MatListModule, MatSelectModule, MatToolbarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarEditComponent } from './car-edit/car-edit.component';
 import { FormsModule } from '@angular/forms';
+import { OwnerComponent } from './owner/owner.component';
+
+import { OwnersListComponent } from './owners-list/owners-list.component';
+import { MainViewComponent } from './main-view/main-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarListComponent,
-    CarEditComponent
+    CarEditComponent,
+    OwnerComponent,
+    OwnersListComponent,
+    MainViewComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,9 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatListModule,
     MatToolbarModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

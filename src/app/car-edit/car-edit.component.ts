@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from '../shared/car/car.service';
+import { OwnerService } from '../shared/owner/owner.service'
 import { GiphyService } from '../shared/giphy/giphy.service';
-import { NgForm } from '@angular/forms';
+
+import {Owner} from '../owner/owner.model';
 
 @Component({
   selector: 'app-car-edit',
@@ -12,16 +14,22 @@ import { NgForm } from '@angular/forms';
 })
 export class CarEditComponent implements OnInit, OnDestroy {
   car: any = {};
-
+  owners: Array<Owner>;
   sub: Subscription;
+  ownerSelected: Owner;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private carService: CarService,
-              private giphyService: GiphyService) {
+              private giphyService: GiphyService,
+              private ownerService: OwnerService
+              ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    this.findOwners();
+
     this.sub = this.route.params.subscribe(params => {
       const id = params['id'];
       if (id) {
@@ -31,13 +39,50 @@ export class CarEditComponent implements OnInit, OnDestroy {
             this.car.href = car._links.self.href;
             this.giphyService.get(car.name).subscribe(url => car.giphyUrl = url);
           } else {
-            console.log(`Car with id '${id}' not found, returning to list`);
             this.gotoList();
           }
         });
       }
     });
   }
+
+
+  getOwnerList()
+  {
+    return this.ownerService.getAll();
+  }
+
+  mapResultToArray(result: any) {
+    const ownerList: Array<Owner> = [];
+    for (const owner of result._embedded.owners) {
+      const indexOfSlash = owner._links.self.href.lastIndexOf("/");
+      const id = owner._links.self.href.substring(indexOfSlash+1, 100);
+      if(owner.dni){
+      let currentOwner: Owner = {
+        dni: owner.dni,
+        name: owner.name,
+        profession: owner.profession,
+        href: owner._links.self.href,
+        id: id
+        };
+        ownerList.push(currentOwner);
+        
+      }
+    }
+    return ownerList;
+  }
+
+  findOwners() {
+    this.getOwnerList().subscribe((data: any)=> {
+      this.owners = this.mapResultToArray(data);
+     } );
+  }
+
+
+  eventSelection(event){
+
+    this.ownerSelected = event.name;
+   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
@@ -47,7 +92,9 @@ export class CarEditComponent implements OnInit, OnDestroy {
     this.router.navigate(['/car-list']);
   }
 
-  save(form: NgForm) {
+  save(form: any) {
+    console.log(form);
+    form.ownerDni = this.ownerSelected;
     this.carService.save(form).subscribe(result => {
       this.gotoList();
     }, error => console.error(error));

@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-title>Owners List</mat-card-title>
+    <mat-card-content>
+  <mat-list>
+    <mat-list-item *ngFor="let owner of owners; let i = index">
+      
+      <h3 mat-line>
+        <a  [routerLink]="['/owner-edit', owner.id]">{{owner.name}}</a>
+      </h3>
+      <mat-checkbox [(ngModel)]="owner.selected"
+      (ngModelChange)="selectToDelete($event, i)">
+      </mat-checkbox>
+
+    </mat-list-item>
+  </mat-list>
+</mat-card-content>
+
+<button mat-fab color="primary" [routerLink]="['/owner-add']">Add</button>
+<button mat-fab color="warn" (click)="deleteOwners($event)">Delete</button>
+</mat-card>
